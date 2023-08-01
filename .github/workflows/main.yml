@@ -22,7 +22,7 @@ jobs:
         config:
           - {
               name: Linux GCC,
-              os: ubuntu-20.04,
+              os: ubuntu-latest,
               compiler: gcc,
               shell: bash,
             }
