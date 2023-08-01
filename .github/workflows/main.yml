@@ -22,7 +22,7 @@ jobs:
         config:
           - {
               name: Linux GCC,
-              os: ubuntu-latest,
+              os: ubuntu-20.04,
               compiler: gcc,
               shell: bash,
             }
@@ -102,6 +102,14 @@ jobs:
         run: |
           cd build
           cpack
+
+      - name: Upload AppImage
+        uses: actions/upload-artifact@v3
+        with:
+          name: Woof-AppImage
+          path: |
+            build/*.AppImage
+        if: runner.os == 'Linux'
 
   cppcheck:
     name: Cppcheck
