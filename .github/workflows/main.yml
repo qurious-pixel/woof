@@ -3,7 +3,7 @@ name: Continuous Integration
 on:
   push:
     #branches: [ master ]
-    tags: ['*']
+    tags-ignore: ['*']
     #paths-ignore: ['**.md']
   pull_request:
     branches: [ master ]
