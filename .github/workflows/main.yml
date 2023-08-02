@@ -3,7 +3,7 @@ name: Continuous Integration
 on:
   push:
     #branches: [ master ]
-    tags-ignore: ['*']
+    #tags-ignore: ['*']
     #paths-ignore: ['**.md']
   pull_request:
     branches: [ master ]
@@ -13,8 +13,6 @@ jobs:
   build:
     name: ${{ matrix.config.name }}
     runs-on: ${{ matrix.config.os }}
-    env:
-      PR_NUMBER: v11.3.1
     defaults:
       run:
         shell: ${{ matrix.config.shell }}
@@ -89,12 +87,7 @@ jobs:
             ${{ matrix.config.msys-env }}-libxmp
 
       - uses: actions/checkout@v3
-
-      - name: "🏷️ Push tag"
-        uses: EndBug/latest-tag@latest
-        with:
-          ref: ${{env.PR_NUMBER}}
-          
+         
       - name: Configure
         env:
           CC: ${{ matrix.config.compiler }}
@@ -116,20 +109,7 @@ jobs:
           name: Woof-AppImage
           path: |
             build/*.appimage
-        if: ${{ contains(github.ref, 'tags') }} && runner.os == 'Linux' 
-
-      - name: Extract Version Number
-        shell: bash
-        run: echo "VERSION=${GITHUB_REF##*_}" >> $GITHUB_ENV
-
-      - name: Release
-        if: ${{ contains(github.ref, 'tags') }} && runner.os == 'Linux'
-        uses: ncipollo/release-action@v1
-        with:
-          name: Woof! ${{ env.VERSION }}
-          bodyFile: CHANGELOG.md
-          allowUpdates: true
-          artifacts: build/*.appimage
+        if: runner.os == 'Linux' 
 
   #cppcheck:
   #  name: Cppcheck
