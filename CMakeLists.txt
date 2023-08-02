@@ -128,16 +128,7 @@ if(WIN32)
 elseif(LINUX)
     set(CPACK_GENERATOR External)
 	set(CPACK_EXTERNAL_ENABLE_STAGING YES)
-	set(CPACK_EXTERNAL_PACKAGE_SCRIPT "${PROJECT_BINARY_DIR}/appimage-generate.cmake")
-	
-	file(GENERATE
-	OUTPUT "${PROJECT_BINARY_DIR}/appimage-generate.cmake"
-	CONTENT [[
-	include(CMakePrintHelpers)
-	cmake_print_variables(CPACK_TEMPORARY_DIRECTORY)
-	cmake_print_variables(CPACK_TOPLEVEL_DIRECTORY)
-	cmake_print_variables(CPACK_PACKAGE_DIRECTORY)
-	cmake_print_variables(CPACK_PACKAGE_FILE_NAME)
+	#set(CPACK_EXTERNAL_PACKAGE_SCRIPT "${PROJECT_BINARY_DIR}/appimage-generate.cmake")
 	
 	find_program(LINUXDEPLOY_EXECUTABLE
 	NAMES linuxdeploy linuxdeploy-x86_64.AppImage
@@ -169,7 +160,6 @@ elseif(LINUX)
 	--output=appimage
 	# --verbosity=2
 	)
-	]])
 else()
     set(CPACK_GENERATOR TGZ)
 endif()
