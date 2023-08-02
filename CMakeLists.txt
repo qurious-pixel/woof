@@ -128,7 +128,7 @@ if(WIN32)
 elseif(LINUX)
     set(CPACK_GENERATOR External)
 	set(CPACK_EXTERNAL_ENABLE_STAGING YES)
-	#set(CPACK_EXTERNAL_PACKAGE_SCRIPT "${PROJECT_BINARY_DIR}/appimage-generate.cmake")
+	set(CPACK_EXTERNAL_PACKAGE_SCRIPT "${PROJECT_BINARY_DIR}/appimage-generate.cmake")
 	
 	find_program(LINUXDEPLOY_EXECUTABLE
 	NAMES linuxdeploy linuxdeploy-x86_64.AppImage
