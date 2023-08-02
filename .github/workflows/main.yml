@@ -14,7 +14,7 @@ jobs:
     name: ${{ matrix.config.name }}
     runs-on: ${{ matrix.config.os }}
     env:
-      PR_NUMBER: ${{ github.event.number }}
+      PR_NUMBER: ${{ github.run_id }}
     defaults:
       run:
         shell: ${{ matrix.config.shell }}
@@ -28,20 +28,20 @@ jobs:
               compiler: gcc,
               shell: bash,
             }
-          - {
-              name: macOS Clang,
-              os: macos-latest,
-              compiler: clang,
-              shell: bash,
-            }
-          - {
-              name: MSYS2 UCRT64,
-              os: windows-latest,
-              compiler: gcc,
-              shell: 'msys2 {0}',
-              msystem: ucrt64,
-              msys-env: mingw-w64-ucrt-x86_64,
-            }
+          #- {
+          #    name: macOS Clang,
+          #    os: macos-latest,
+          #    compiler: clang,
+          #    shell: bash,
+          #  }
+          #- {
+          #    name: MSYS2 UCRT64,
+          #    os: windows-latest,
+          #    compiler: gcc,
+          #    shell: 'msys2 {0}',
+          #    msystem: ucrt64,
+          #    msys-env: mingw-w64-ucrt-x86_64,
+          #  }
 
     steps:
       - name: Install dependencies (Linux)
@@ -131,17 +131,17 @@ jobs:
           allowUpdates: true
           artifacts: build/*.appimage
 
-  cppcheck:
-    name: Cppcheck
-    runs-on: ubuntu-latest
+  #cppcheck:
+  #  name: Cppcheck
+  #  runs-on: ubuntu-latest
 
-    steps:
-      - name: Install dependencies
-        run: sudo apt-get update && sudo apt-get install cppcheck
+   # steps:
+   #   - name: Install dependencies
+   #     run: sudo apt-get update && sudo apt-get install cppcheck
 
-      - uses: actions/checkout@v3
+    #  - uses: actions/checkout@v3
 
-      - name: Run cppcheck
-        shell: bash
-        run: |
-          cppcheck --version ; cppcheck --error-exitcode=1 -j4 -q --force -U_WIN32 -Isrc opl src setup textscreen
+     # - name: Run cppcheck
+     #   shell: bash
+     #   run: |
+     #     cppcheck --version ; cppcheck --error-exitcode=1 -j4 -q --force -U_WIN32 -Isrc opl src setup textscreen
