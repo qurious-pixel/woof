@@ -116,14 +116,14 @@ jobs:
           name: Woof-AppImage
           path: |
             build/*.appimage
-        if: ${{ contains(github.ref, 'tags') && runner.os == 'Linux' }}
+        if: ${{ contains(github.ref, 'tags') }} && runner.os == 'Linux' 
 
       - name: Extract Version Number
         shell: bash
         run: echo "VERSION=${GITHUB_REF##*_}" >> $GITHUB_ENV
 
       - name: Release
-        if: ${{ contains(github.ref, 'tags') && runner.os == 'Linux' }}
+        if: ${{ contains(github.ref, 'tags') }} && runner.os == 'Linux'
         uses: ncipollo/release-action@v1
         with:
           name: Woof! ${{ env.VERSION }}
